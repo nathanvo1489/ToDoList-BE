@@ -1,2 +1,2 @@
 # ToDoList-BE
-Project ToDoList (MERN stack) Backend repo
+Project ToDoList (MERN stack) Backend repo: ExpressJS
