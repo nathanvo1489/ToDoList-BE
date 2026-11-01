@@ -55,13 +55,13 @@ pipeline {
                         variable: 'IP_SERVER_RUN_BE')
                 ]) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no -i ${SSH_KEY} ${SSH_USER}@${IP_SERVER_RUN_BE}
+                        ssh -o StrictHostKeyChecking=no -i ${SSH_KEY} ${SSH_USER}@${IP_SERVER_RUN_BE} "
                             ls -la
-
                             cd /home/ubuntu/ToDoList-BE/docker-compose/
                             docker compose pull js_express_be
                             docker compose up -d --force-recreate js_express_be
                             docker image prune -f
+                        "
                     '''
                 }
             }
