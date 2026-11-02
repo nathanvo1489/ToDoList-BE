@@ -60,6 +60,7 @@ pipeline {
                             cd /home/ubuntu/ToDoList-BE/docker-compose/
                             docker compose pull js_express_be
                             docker compose up -d --force-recreate js_express_be
+                            docker ps
                             docker image prune -f
                         "
                     '''
