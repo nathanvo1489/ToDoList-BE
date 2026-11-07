@@ -40,6 +40,9 @@ Pipeline:
 - Pipeline speed: performance
 - Trigger: GitHub hook
 
+# GITHUB Action workflow for BE
+- commit len branch develop truoc, sau do reviewer se check & merge qua branch main -> trigger Github Action workflow
+
 # TERRAFORM CLI
 ```bash
 # must run in the parent folder of 'terraform'
@@ -107,4 +110,54 @@ ansible-playbook -i inventory.ini playbook-install-docker.yml
 ansible-playbook -i inventory.ini playbook-install-nginx.yml
 ansible-playbook -i inventory.ini playbook-install-jenkins.yml
 
+
+
 ```
+
+# MONITORING
+                 BACKEND SERVER
+                 54.179.76.123
+
+        +------------------------+
+        |        Grafana         |
+        +------------------------+
+                    |
+        +------------------------+
+        |      Prometheus        |
+        +------------------------+
+                    ^
+                    |
+            scrape metrics
+                    |
+        +------------------------+
+        |     Node Exporter      |
+        +------------------------+
+
+                    |
+
+        +------------------------+
+        |         Loki           |
+        +------------------------+
+                    ^
+                    |
+               push logs
+                    |
+        +------------------------+
+        |         Alloy          |
+        +------------------------+
+
+
+                 FRONTEND SERVER
+                 52.221.211.112
+
+        +------------------------+
+        |     Node Exporter      |
+        +------------------------+
+                    |
+                    +------> Prometheus
+
+        +------------------------+
+        |         Alloy          |
+        +------------------------+
+                    |
+                    +------> Loki
