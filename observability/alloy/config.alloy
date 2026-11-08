@@ -7,7 +7,7 @@ discovery.relabel "docker" {
 
     rule {
         source_labels = ["__meta_docker_container_name"]
-        regex        = "/(.+)"
+        regex        = "/(.*)"
         target_label = "container" 
     }
 }
