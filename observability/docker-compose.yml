@@ -12,6 +12,9 @@ services:
     image: grafana/loki:3.6.16
     container_name: loki
     command: -config.file=/etc/loki/local-config.yaml
+    # Restrict TCP/3100 to the frontend server's IP in the host firewall/security group.
+    ports:
+      - "3100:3100"
     volumes:
       - loki-data:/tmp/loki
 
@@ -19,6 +22,7 @@ services:
     image: grafana/alloy:v1.19.2
     container_name: alloy
     command: [ run, --storage.path=/var/lib/alloy/data, /etc/alloy/config.alloy ]
+    restart: unless-stopped
     volumes:
       - ./alloy/config.alloy:/etc/alloy/config.alloy:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -27,31 +31,30 @@ services:
       - loki
 
   # docker run -d --name=prometheus -p 9090:9090 prom/prometheus
-  # prometheus:
-  #   image: prom/prometheus:v3.14.0
-  #   container_name: prometheus
-  #   extra_hosts:
-  #     - "host:host-gateway"
-  #   ports:
-  #     - 9090:9090
-  #   volumes:
-  #     - prometheus-data:/prometheus
-  #     - ./prometheus:/etc/prometheus
+  prometheus:
+    image: prom/prometheus:v3.14.0
+    container_name: prometheus
+    extra_hosts:
+      - "host:host-gateway"
+    ports:
+      - 9090:9090
+    volumes:
+      - prometheus-data:/prometheus
+      - ./prometheus:/etc/prometheus
   
-  # node_exporter:
-  #   image: quay.io/prometheus/node-exporter:v1.12.1
-  #   container_name: node_exporter
-  #   command:
-  #     - '--path.rootfs=/host'
-  #   network_mode: host
-  #   pid: host
-  #   restart: unless-stopped
-  #   volumes:
-  #     - '/:/host:ro,rslave'
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:v1.12.1
+    container_name: node_exporter
+    command:
+      - '--path.rootfs=/host'
+    network_mode: host
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
 
 volumes:
   grafana-data:
   loki-data:
   alloy-data:
-  # prometheus-data:
-
+  prometheus-data:

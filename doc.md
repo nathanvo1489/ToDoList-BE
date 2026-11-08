@@ -116,7 +116,7 @@ ansible-playbook -i inventory.ini playbook-install-jenkins.yml
 
 # MONITORING
                  BACKEND SERVER
-                 54.179.76.123
+                 13.214.188.172
 
         +------------------------+
         |        Grafana         |
@@ -148,7 +148,7 @@ ansible-playbook -i inventory.ini playbook-install-jenkins.yml
 
 
                  FRONTEND SERVER
-                 52.221.211.112
+                 13.214.123.0
 
         +------------------------+
         |     Node Exporter      |
