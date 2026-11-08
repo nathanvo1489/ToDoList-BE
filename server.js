@@ -38,11 +38,11 @@ app.use("/api/user", userRouter)
 app.use("/api/task", taskRouter)
 app.use("/api/forgotPassword", forgotPasswordRouter)
 
-//output to console/logs the current time every 3 seconds to see if the server is running
+//output to console/logs the current time every 5 seconds to see if the server is running
 app.listen(port, () => {
     console.log(`Listening on localhost:${port}`)
 
-    const printCurrentTime = () => console.log(new Date().toISOString())
+    const printCurrentTime = () => console.log("Current time:", new Date())
     printCurrentTime()
-    setInterval(printCurrentTime, 3000)
+    setInterval(printCurrentTime, 5000)
 })
